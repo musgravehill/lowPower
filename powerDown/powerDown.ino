@@ -1,9 +1,11 @@
 #include "LowPower.h"
 
-uint16_t counterSleep_x10 = 0;
-uint16_t counterSleep_x20 = 0;
-uint16_t counterSleep_x30 = 0;
-unsigned long t;
+//if 10,20,60 => 20=10*2  60=10*6  60=20*3 collisions
+//Prime number => it minimizes collisions
+uint16_t counterSleep_x7 = 0; 
+uint16_t counterSleep_x17 = 0; 
+uint16_t counterSleep_x31 = 0; 
+unsigned long t = 0;
 
 const int ledPin =  13;
 
@@ -16,48 +18,46 @@ void setup(){
 
 void loop() {  
   LowPower.powerDown(SLEEP_1S, ADC_OFF, BOD_OFF);
-  counterSleep_x10++;
-  counterSleep_x20++;
-  counterSleep_x30++;
+  counterSleep_x7++;
+  counterSleep_x17++;
+  counterSleep_x31++;
 
-  if(counterSleep_x10 >= 10){
-    counterSleep_x10 = 0;
-    //task_x10();     
+  if(counterSleep_x7 >= 7){
+    counterSleep_x7 = 0;
+    task_x7();     
   } 
 
-  if(counterSleep_x20 >= 20){
-    counterSleep_x20 = 0;
-    //task_x20();     
+  if(counterSleep_x17 >= 17){
+    counterSleep_x17 = 0;
+    task_x17();     
   } 
 
-  if(counterSleep_x30 >= 30){
-    counterSleep_x30 = 0;
-    task_x30();     
+  if(counterSleep_x31 >= 31){
+    counterSleep_x31 = 0;
+    task_x31();     
   }  
 
 
 }
 
-void task_x10(){
+void task_x7(){
   digitalWrite(ledPin, 1);
-  delay(200);
+  delay(100);
   digitalWrite(ledPin, 0); 
 }
 
-void task_x20(){
+void task_x17(){
   digitalWrite(ledPin, 1);
-  delay(200);
+  delay(100);
   digitalWrite(ledPin, 0);
-  delay(200);
+  delay(100);
   digitalWrite(ledPin, 1);
-  delay(200);
+  delay(100);
   digitalWrite(ledPin, 0);  
-
-
 }
 
-void task_x30(){
-  /*digitalWrite(ledPin, 1);
+void task_x31(){
+  digitalWrite(ledPin, 1);
    delay(100);
    digitalWrite(ledPin, 0);
    delay(100);
@@ -67,12 +67,12 @@ void task_x30(){
    delay(100);
    digitalWrite(ledPin, 1);
    delay(100);
-   digitalWrite(ledPin, 0);*/
-  unsigned long dt = t - millis();
-  t = millis();
-  Serial.println(dt, DEC);
-  delay(100); //time to send data, then CPU sleep
+   digitalWrite(ledPin, 0);
+  
+  Serial.println("Zzz..");
+  delay(500); //time to send data, then CPU sleep
 }
+
 
 
 
