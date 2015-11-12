@@ -22,17 +22,17 @@ void loop() {
   counterSleep_x17++;
   counterSleep_x31++;
 
-  if(counterSleep_x7 >= 7){
+  if(counterSleep_x7 >= 3){
     counterSleep_x7 = 0;
     task_x7();     
   } 
 
-  if(counterSleep_x17 >= 17){
+  if(counterSleep_x17 >= 5){
     counterSleep_x17 = 0;
     task_x17();     
   } 
 
-  if(counterSleep_x31 >= 31){
+  if(counterSleep_x31 >= 7){
     counterSleep_x31 = 0;
     task_x31();     
   }  
