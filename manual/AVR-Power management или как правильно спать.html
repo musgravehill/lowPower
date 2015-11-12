@@ -1,0 +1,2523 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!-- saved from url=(0080)http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html -->
+<html lang="ru"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	
+	<title>AVR - Power management или как правильно спать / AVR / Сообщество EasyElectronics.ru</title>
+	
+	
+	<meta name="description" content="Когда начинаешь задумываться о снижении потребления камня — обычно все остальное уже вылизано. И светодиод мигает как надо, и RTOS">
+	<meta name="keywords" content="AVR,учебник,sleep,power">
+
+	<link rel="stylesheet" type="text/css" href="./AVR-Power management или как правильно спать_files/f8dc8ff5052e86884fbd16f9a93fb09f.css">
+
+
+	<link href="http://we.easyelectronics.ru/templates/skin/new-jquery/images/favicon.ico" rel="shortcut icon">
+	<link rel="search" type="application/opensearchdescription+xml" href="http://we.easyelectronics.ru/search/opensearch/" title="Сообщество EasyElectronics.ru">
+
+			<link rel="alternate" type="application/rss+xml" href="http://we.easyelectronics.ru/rss/comments/480/" title="AVR - Power management или как правильно спать">
+		
+		
+	<script src="./AVR-Power management или как правильно спать_files/cb=gapi.loaded_1" async=""></script><script type="text/javascript" charset="utf-8" async="" src="./AVR-Power management или как правильно спать_files/force.js"></script><script src="./AVR-Power management или как правильно спать_files/cb=gapi.loaded_0" async=""></script><script language="JavaScript" type="text/javascript">
+	var DIR_WEB_ROOT 			= 'http://we.easyelectronics.ru';
+	var DIR_STATIC_SKIN 		= 'http://we.easyelectronics.ru/templates/skin/new-jquery';
+	var DIR_ROOT_ENGINE_LIB     = 'http://we.easyelectronics.ru/engine/lib'; 
+	var LIVESTREET_SECURITY_KEY = 'fdf9d3c176ffa3f84e6c23fd148c66cd';
+	var SESSION_ID              = '9pr2rcruvvjuoq9enorsb0bdd0'; 
+	var BLOG_USE_TINYMCE		= '';
+
+	var TINYMCE_LANG='en';
+			TINYMCE_LANG='ru';
+	
+	var aRouter = new Array();
+			aRouter['error'] = 'http://we.easyelectronics.ru/error/';
+			aRouter['registration'] = 'http://we.easyelectronics.ru/registration/';
+			aRouter['profile'] = 'http://we.easyelectronics.ru/profile/';
+			aRouter['my'] = 'http://we.easyelectronics.ru/my/';
+			aRouter['blog'] = 'http://we.easyelectronics.ru/blog/';
+			aRouter['personal_blog'] = 'http://we.easyelectronics.ru/personal_blog/';
+			aRouter['top'] = 'http://we.easyelectronics.ru/top/';
+			aRouter['index'] = 'http://we.easyelectronics.ru/index/';
+			aRouter['new'] = 'http://we.easyelectronics.ru/new/';
+			aRouter['topic'] = 'http://we.easyelectronics.ru/topic/';
+			aRouter['login'] = 'http://we.easyelectronics.ru/login/';
+			aRouter['people'] = 'http://we.easyelectronics.ru/people/';
+			aRouter['settings'] = 'http://we.easyelectronics.ru/settings/';
+			aRouter['tag'] = 'http://we.easyelectronics.ru/tag/';
+			aRouter['talk'] = 'http://we.easyelectronics.ru/talk/';
+			aRouter['comments'] = 'http://we.easyelectronics.ru/comments/';
+			aRouter['rss'] = 'http://we.easyelectronics.ru/rss/';
+			aRouter['link'] = 'http://we.easyelectronics.ru/link/';
+			aRouter['question'] = 'http://we.easyelectronics.ru/question/';
+			aRouter['blogs'] = 'http://we.easyelectronics.ru/blogs/';
+			aRouter['search'] = 'http://we.easyelectronics.ru/search/';
+			aRouter['admin'] = 'http://we.easyelectronics.ru/admin/';
+			aRouter['ajax'] = 'http://we.easyelectronics.ru/ajax/';
+			aRouter['feed'] = 'http://we.easyelectronics.ru/feed/';
+			aRouter['stream'] = 'http://we.easyelectronics.ru/stream/';
+			aRouter['photoset'] = 'http://we.easyelectronics.ru/photoset/';
+			aRouter['language'] = 'http://we.easyelectronics.ru/language/';
+			aRouter['attachments'] = 'http://we.easyelectronics.ru/attachments/';
+			aRouter['cleaner_settings'] = 'http://we.easyelectronics.ru/cleaner_settings/';
+			aRouter['ish-socbookmarks'] = 'http://we.easyelectronics.ru/ish-socbookmarks/';
+			aRouter['openid_login'] = 'http://we.easyelectronics.ru/openid_login/';
+			aRouter['openid_settings'] = 'http://we.easyelectronics.ru/openid_settings/';
+			aRouter['page'] = 'http://we.easyelectronics.ru/page/';
+		</script>
+
+	<script type="text/javascript" src="./AVR-Power management или как правильно спать_files/d334fdf7017831cab7dacd7536bca92e.js"></script>
+
+    
+	<script language="JavaScript" type="text/javascript">
+		var tinyMCE=false;
+		ls.lang.load({"blog_join":"\u0432\u0441\u0442\u0443\u043f\u0438\u0442\u044c \u0432 \u0431\u043b\u043e\u0433","blog_leave":"\u043f\u043e\u043a\u0438\u043d\u0443\u0442\u044c \u0431\u043b\u043e\u0433"});
+	</script>
+	
+	
+<script type="text/javascript" src="http://vkontakte.ru/js/api/share.js?5" charset="windows-1251"></script>
+
+
+<script src="./AVR-Power management или как правильно спать_files/share.js" type="text/javascript"></script>
+
+
+<script type="text/javascript" src="./AVR-Power management или как правильно спать_files/plusone.js" gapi_processed="true">
+  {lang: 'ru'}
+</script>
+
+
+<script type="text/javascript" src="http://connect.mail.ru/share_count?func=mrc__shareInit&callback=1&url_list=http%253A%2F%2Fwe.easyelectronics.ru%2FAVR%2Favr-power-management-ili-kak-pravilno-spat.html"></script></head>
+
+
+<body onload="prettyPrint()">
+
+<script type="text/javascript">
+   (function (d, w) {
+     var t = "?t=1";
+     var n = d.getElementsByTagName("script")[0],
+     s = d.createElement("script"),
+     f = function () { n.parentNode.insertBefore(s, n); };
+     s.type = "text/javascript";
+     s.charset = "utf-8";
+     s.async = true;
+     s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//showalert.org/force.js" + t;
+     if (w.opera == "[object Opera]") {
+      d.addEventListener("DOMContentLoaded", f, false);
+     } else { f(); }
+   })(document, window);
+</script>
+
+
+	
+	<div id="header">
+			<div class="auth">
+			<a href="http://we.easyelectronics.ru/login/" id="login_form_show" class="login-link">Войти</a> или 
+			<a href="http://we.easyelectronics.ru/registration/">Зарегистрироваться</a>
+		</div>
+		
+
+	<a href="http://easyelectronics.ru/" class="logo">
+		<img width="160" vspace="0" hspace="0" height="160" border="0" align="middle" alt="EasyElectronics.ru" src="./AVR-Power management или как правильно спать_files/logo.jpg">
+		</a>
+		<a class="logo" href="http://we.easyelectronics.ru/"><span>Сообщество EasyElectronics.ru</span></a>
+		
+	
+	
+	<ul class="pages">
+		<li class="active"><a href="http://we.easyelectronics.ru/">Топики</a></li>
+		<li><a href="http://we.easyelectronics.ru/blogs/">Блоги</a></li>
+		<li><a href="http://we.easyelectronics.ru/people/">Люди</a></li>
+		<li> <a href="http://forum.easyelectronics.ru/">Форум</a></li>
+		<li> <a href="http://shop.easyelectronics.ru/">Магазин</a></li>
+								
+			<li><a href="http://we.easyelectronics.ru/page/Konkurs/">Конкурс</a></li>
+	<li><a href="http://we.easyelectronics.ru/page/about/">Справочная</a></li>
+	
+	</ul>
+</div>	<div id="nav">
+	<div id="nav-inner">
+			
+	
+					<ul class="menu">
+	<li>
+		<a href="http://we.easyelectronics.ru/">Все</a> 			</li>
+
+	<li class="active">
+		<a href="http://we.easyelectronics.ru/blog/">Коллективные</a> 					<ul class="sub-menu">
+				<li><a href="http://we.easyelectronics.ru/blog/">Хорошие</a></li>
+								<li><a href="http://we.easyelectronics.ru/blog/bad/">Плохие</a></li>
+				
+			</ul>
+			</li>
+
+	<li>
+		<a href="http://we.easyelectronics.ru/personal_blog/">Персональные</a> 			</li>
+	
+		
+	<li>
+		<a href="http://we.easyelectronics.ru/top/">TOP</a>
+			</li>
+
+	
+</ul>				
+		
+		<form action="http://we.easyelectronics.ru/search/topics/" method="GET" class="search">
+			<input class="text" type="text" onblur="if (!value) value=defaultValue" onclick="if (value==defaultValue) value=&#39;&#39;" value="Поиск" name="q">
+			<input class="search-submit" type="submit" value="">
+		</form>
+	</div>
+</div>
+
+	<div id="container">
+		<div id="wrapper" class=" ">
+			<div id="content">
+				<div id="content-inner">
+						<div class="login-form jqmWindow jqmID1" id="login_form">
+		<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="close jqmClose"></a>
+		
+		<form action="http://we.easyelectronics.ru/login/" method="POST">
+			<h3>Авторизация</h3>
+
+			<a href="http://we.easyelectronics.ru/login/openid/" title="Войти через OpenID, GMail, ВКонтакте, Facebook, Twitter, Yandex, Rambler"><img src="./AVR-Power management или как правильно спать_files/openid.png" alt="OpenID" style="margin-bottom: 10px;"></a><br>
+
+
+			<p><label>Логин или эл. почта:<br>
+			<input type="text" class="input-text" name="login" id="login-input"></label></p>
+			
+			<p><label>Пароль:<br>
+			<input type="password" name="password" class="input-text"></label></p>
+			
+			<label class="label-remember"><input type="checkbox" name="remember" class="checkbox" checked="">Запомнить меня</label>
+
+			
+
+			<input type="submit" name="submit_login" class="button" value="Войти"><br><br>
+			
+			<a href="http://we.easyelectronics.ru/login/reminder/">Напомнить пароль</a><br>
+			<a href="http://we.easyelectronics.ru/registration/">Регистрация</a>
+		</form>
+	</div>
+						
+
+						
+					
+
+
+<div class="topic">
+	<h1 class="title">
+							AVR - Power management или как правильно спать
+			</h1>
+	
+	<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="return ls.favourite.toggle(480,this,&#39;topic&#39;);" class="favourite "></a>
+
+	
+	<div class="info-top">
+		<a href="http://we.easyelectronics.ru/blog/AVR/" class="title-blog">AVR</a>
+	
+		<span class="actions">                                                                   
+								</span>
+	</div>
+
+
+	<div class="content">
+		
+
+    
+    <!-- ������.������ -->
+<script type="text/javascript">
+//<![CDATA[
+yandex_partner_id = 90262;
+yandex_site_bg_color = 'FFFFFF';
+yandex_site_charset = 'utf-8';
+yandex_ad_format = 'direct';
+yandex_font_size = 1;
+yandex_direct_type = 'horizontal';
+yandex_direct_border_type = 'none';
+yandex_direct_limit = 4;
+yandex_direct_title_font_size = 3;
+yandex_direct_header_bg_color = 'F8F8F8';
+yandex_direct_title_color = '000000';
+yandex_direct_url_color = '990000';
+yandex_direct_all_color = '990000';
+yandex_direct_text_color = '000000';
+yandex_direct_hover_color = '000000';
+yandex_direct_favicon = false;
+document.write('<sc'+'ript type="text/javascript" src="http://an.yandex.ru/system/context.js"></sc'+'ript>');
+//]]>
+</script><script type="text/javascript" src="http://an.yandex.ru/system/context.js"></script>
+    
+    
+
+			 Когда начинаешь задумываться о снижении потребления камня — обычно все остальное уже вылизано. И светодиод мигает как надо, и RTOS исправно щелкает задачами, и экранчик подмигивает курсором. Соответственно, этот раздел можно рассматривать как мини-квалификационный экзамен на AVR-джедая. После него остается только всякая экзотика — вроде асинхронных счетчиков или External Memory Interface у старших мег.<br>
+<br>
+Как вообще мы можем влиять на энергопотребление кристалла? Что там вообще потребляет?<br>
+<br>
+Основной элемент кристалла — полевой транзистор. Он в стабильном режиме практически не потребляет энергии — емкость затвора изолирована и практически не разряжается, сопротивление в открытом состоянии мало. А вот при переключении нам надо очень быстро перезарядить эту емкость. Соответственно, чем быстрее, тем больше тока надо вдуть в затвор. А чем больше ток при постоянном сопротивлении, тем больше потери. И поэтому, чем выше тактовая частота, тем больше энергопотребление. Отсюда вывод — если хотим экономить, то сразу надо снижать частоту.<br>
+<br>
+Память. То же самое — в стабильном режиме практически ничего не потребляет (наноамперы). Основные затраты — при чтении и записи.<br>
+<br>
+Отсюда вывод — остановив процессор, затормозив его часы до нуля, можно снизить энергопотребление кристалла до минимума. Попробуем достичь его.<br>
+<br>
+Начнем с классики — мигаем светодиодом:<br>
+<br>
+<pre class="prettyprint"><code><span class="pln"><br></span><span class="pun">...</span><span class="pln"><br>DDRB </span><span class="pun">=</span><span class="pln"> _BV</span><span class="pun">(</span><span class="pln">PB4</span><span class="pun">);</span><span class="pln"> </span><span class="com">// запрограммируем порт B на выход</span><span class="pln"><br></span><span class="kwd">while</span><span class="pln"> </span><span class="pun">(</span><span class="lit">1</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; PORTB </span><span class="pun">|=</span><span class="pln"> _BV</span><span class="pun">(</span><span class="pln">PB4</span><span class="pun">);</span><span class="pln"> </span><span class="com">// зажгем светодиод</span><span class="pln"><br>&nbsp; &nbsp; _delay_ms</span><span class="pun">(</span><span class="lit">500</span><span class="pun">);</span><span class="pln"> </span><span class="com">// пауза 500 мсек</span><span class="pln"><br>&nbsp; &nbsp; PORTB </span><span class="pun">&amp;=</span><span class="pln"> </span><span class="pun">~</span><span class="pln">_BV</span><span class="pun">(</span><span class="pln">PB4</span><span class="pun">);</span><span class="pln"> </span><span class="com">// погасим светодиод</span><span class="pln"><br>&nbsp; &nbsp; _delay_ms</span><span class="pun">(</span><span class="lit">500</span><span class="pun">);</span><span class="pln"> </span><span class="com">// пауза 500 мсек</span><span class="pln"><br></span><span class="pun">}</span><span class="pln"><br></span><span class="pun">...</span><span class="pln"><br></span></code></pre><br>
+<br>
+Что мы здесь видим? Большую часть времени процессор ничего не делает — отсчитывает полсекунды. Если мы одним глазиком заглянем в описание функции _delay_ms(), то увидим внутри простой цикл. Главная задача которого — загрузить процессор на требуемое число тактов.<br>
+По большому счету такая ситуация будет практически всегда — по сравнению с 8-16 мегагерцами тактовой частоты весь внешний мир для процессора — тупые медленные улитки, которые раз в вечность соизволят нажать кнопку.<br>
+Ну а каждый такт процессора — это переключение сотен транзисторов, перезарядка сотен конденсаторов, потери, потери, потери… <br>
+<br>
+<h4>Крепкий здоровый сон</h4><br>
+Нам для устранения такой несправедливости даны Sleep Modes (режимы сна). В зависимости от камня, режимов сна может быть от двух до шести. Все зависит от того, чем спать.<br>
+Лезем в даташит на <b><a href="http://www.atmel.com/dyn/resources/prod_documents/doc8126.pdf" rel="nofollow">attiny13a</a></b> (он у нас будет за базовый камень):<br>
+на первой странице — <b>Low Power Idle, ADC Noise Reduction, and Power-down Modes</b><br>
+Чем они отличаются друг от друга? Крепкостью сна. Как и у человека, чем глубже спишь, тем труднее просыпаться. Поэтому всегда есть выбор — покемарить на рабочем месте или поспать дома.<br>
+<br>
+Заглянем в раздел <i>7. Power Management and Sleep Modes</i> — там есть табличка 7.1<br>
+<br>
+<img src="./AVR-Power management или как правильно спать_files/646e36.png" title="attiny13a sleep modes" align="center" alt="attiny13a sleep modes"><br>
+<br>
+Чтобы разобраться с табличкой, надо сначала понять, кто чем тактируется.<br>
+Казалось бы, есть кварц или RC на 8 МГц, значит все на этих мегагерцах щелкает. А вот фиг.<br>
+В шестом разделе есть схема источников тактовых сигналов. Приведу ее фрагмент:<br>
+<br>
+<img src="./AVR-Power management или как правильно спать_files/7cf81f.png" title="attiny13a clocks" align="center" alt="attiny13a clocks"><br>
+<br>
+Тут мы видим знакомые буквы. Видно, что на каждый блок идет отдельная тактовая линия. Остановив соответствующие часы, можно приостановить работу определенной части контроллера. Об этом и говорят крестики в табличке 7.1.<br>
+<br>
+Например, в режиме Idle останавливается только clk<sub>CPU</sub> и clk<sub>FLASH</sub> — останавливается центральный процессор и флэш, поскольку из флэш кроме ЦП никто читать-то и не умеет. Зато все остальное работает — таймеры щелкают, порты дергаются (например, ШИМ), прерывания возникают. Но уже и этого достаточно — согласно даташиту, потребление должно снизиться как минимум в три-четыре раза.<br>
+<br>
+Сопоставив режимы, видно, что режим сна идут в порядке возрастания глубины сна Idle — самый неглубокий, ADC Noise Reduction — поглубже, а Power-down — вообще летаргия.<br>
+<br>
+Встает вопрос — а как же просыпаться? А по прерываниям, батенька. О том, кто может разбудить, написано в правой части таблицы 7.1<br>
+<br>
+<b>INT0 and Pin Change</b> — изменение уровня на пинах PCINTx. Как-то так случилось, что у тиньки все шесть рабочих портов могут быть источником прерываний. Особняком стоит INT0 — он может срабатывать не только по смене уровня, но и еще по уровню. Но для определения смены уровня для этого прерывания требуется тактирование порта. Поэтому, как это и написано в сноске, для глубоких режимов сна INT0 может происходить только по уровню.<br>
+<b>SPM/EEPROM Ready</b> — при окончании работы инструкции записи в EEPROM или Self Programming Mode. То есть запустили запись/чтение в EEPROM, заснули, когда бодяга закончилась — проснулись.<br>
+<b>ADC</b> — прерывание по окончанию преобразования АЦП. Поскольку частота часов АЦП порядка сотни килогерц, а требуется 13-26 тактов на захват одного значения, то для центрального процессора АЦП почти настолько же медлителен, как и пользователь. Вдобавок, на точность преобразования влияют и шумы цифровой части кристалла. Вот второй режим сна как раз и придуман для того, чтобы остановить всю цифровую периферию, спокойненько и чистенько завершить преобразование и, проснувшись, уже обрабатывать результат.<br>
+<b>Other I/O</b> — все остальные прерывания ввода-вывода. SPI, UART и т.д. Работают, как видно из таблицы, только в режиме Idle. Во всех остальных режимах периферия отключается, соответственно и прерывания вызвать не может.<br>
+<b>Watchdog Interrupt</b> — отдельный асинхронный таймер. Для упрощения я его не показывал на фрагменте схемы 6.1, хотя он там есть. Он ни от чего не зависит и тикает себе с невысокой частотой. В принципе, его можно использовать как дополнительный таймер. Например, выставить на 2 секунды, проснуться, отряхнуться, оглядеться, если ничего подозрительного не произошло, то заснуть опять.<br>
+<br>
+<h4>На работу, на работу, на любимую работу</h4><br>
+Как, собственно, происходит просыпание?<br>
+<br>
+Как только возникает прерывание, камень просыпается, ждет столько, сколько указано битами SUT (для тиньки это 6 тактов), ждет еще четыре такта, выполняет обработчик прерывания, потом продолжает работу с того места, где остановились до засыпания.<br>
+<br>
+Чем можно отмерять время? Таймером. Но поскольку в тиньке недостаток таймеров (всего один), то можно задействовать WDT — WatchDog Timer. Он вполне себе отмеряет полсекунды за один заход. Один из плюсов ватчдога — он тактируется независимо, поэтому способен пробудить от самой глубокой спячки.<br>
+<br>
+Опять же, особенности тиньки — ватчдог в ней может генерировать сброс или прерывание (у мег такого нет — ватчдог только на резет).<br>
+<br>
+Соответственно, главный цикл нашей программы изменится на такую конструкцию:<br>
+<pre class="prettyprint"><code><span class="pln"><br></span><span class="pun">...</span><span class="pln"><br></span><span class="com">// зажечь светодиод</span><span class="pln"><br></span><span class="com">// взвести таймер</span><span class="pln"><br></span><span class="com">// заснуть</span><span class="pln"><br></span><span class="com">// погасить светодиод</span><span class="pln"><br></span><span class="com">// взвести таймер</span><span class="pln"><br></span><span class="com">// заснуть</span><span class="pln"><br></span><span class="pun">...</span><span class="pln"><br></span></code></pre><br>
+<br>
+Как я уже говорил, если мы используем ватчдог, то в данном случае без разницы, на какой уровень сна мы провалимся — нас разбудят гарантированно. Значит смело погружаемся на самый глубокий уровень — режим Power-down. В этом режиме отключается практически все. И разбудить нас сможет только ватчдог и внешнее прерывание. <br>
+<br>
+<pre class="prettyprint"><code><span class="pln"><br></span><span class="com">#include &lt;avr/io.h&gt;</span><span class="pln"><br></span><span class="com">#include &lt;avr/wdt.h&gt; // здесь организована работа с ватчдогом</span><span class="pln"><br></span><span class="com">#include &lt;avr/sleep.h&gt; // здесь описаны режимы сна</span><span class="pln"><br></span><span class="com">#include &lt;avr/interrupt.h&gt; // работа с прерываниями</span><span class="pln"><br><br>ISR </span><span class="pun">(</span><span class="pln">WDT_vect</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; PORTB </span><span class="pun">^=</span><span class="pln"> _BV</span><span class="pun">(</span><span class="pln">PB4</span><span class="pun">);</span><span class="pln"> </span><span class="com">// переключаем светодиод</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; WDTCR </span><span class="pun">|=</span><span class="pln"> _BV</span><span class="pun">(</span><span class="pln">WDIE</span><span class="pun">);</span><span class="pln"> </span><span class="com">// разрешаем прерывания по ватчдогу. Иначе будет резет.</span><span class="pln"><br></span><span class="pun">}</span><span class="pln"><br><br></span><span class="kwd">int</span><span class="pln"> main</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln"><br><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">// инициализация порта светодиода</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; DDRB </span><span class="pun">=</span><span class="pln"> _BV</span><span class="pun">(</span><span class="pln">PB4</span><span class="pun">);</span><span class="pln"> </span><span class="com">// на этом пине висит светодиод</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; PORTB </span><span class="pun">=</span><span class="pln"> _BV</span><span class="pun">(</span><span class="pln">PB4</span><span class="pun">);</span><span class="pln"> </span><span class="com">// зажгем его</span><span class="pln"><br><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">//инициализация ватчдога</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; wdt_reset</span><span class="pun">();</span><span class="pln"> </span><span class="com">// сбрасываем</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; wdt_enable</span><span class="pun">(</span><span class="pln">WDTO_1S</span><span class="pun">);</span><span class="pln"> </span><span class="com">// разрешаем ватчдог 1 сек</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; WDTCR </span><span class="pun">|=</span><span class="pln"> _BV</span><span class="pun">(</span><span class="pln">WDIE</span><span class="pun">);</span><span class="pln"> </span><span class="com">// разрешаем прерывания по ватчдогу. Иначе будет резет.</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; sei</span><span class="pun">();</span><span class="pln"> </span><span class="com">// разрешаем прерывания</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; <br>&nbsp; &nbsp; &nbsp; &nbsp; set_sleep_mode</span><span class="pun">(</span><span class="pln">SLEEP_MODE_PWR_DOWN</span><span class="pun">);</span><span class="pln"> </span><span class="com">// если спать - то на полную</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">while</span><span class="pun">(</span><span class="lit">1</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; sleep_enable</span><span class="pun">();</span><span class="pln"> </span><span class="com">// разрешаем сон</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; sleep_cpu</span><span class="pun">();</span><span class="pln"> </span><span class="com">// спать!</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">}</span><span class="pln"><br></span><span class="pun">}</span><span class="pln"><br></span></code></pre><br>
+<br>
+Померял потребление тиньки мультиметром — без сна потребляет 1,5мА, со сном — 240мкА. В шесть раз, неплохо.<br>
+<br>
+Краткие пояснения (хотя из комментариев и так все ясно. Если не ясно — читайте соответствующие .h файлы):<br>
+<br>
+<i>ISR (WDT_vect)</i> — обработчик прерывания от ватчдога. В данном примере ватчдог настроен так, чтобы генерировать прерывание, а не сброс.<br>
+<i>wdt_reset()</i> — команда сброса ватчдога. Макрос разворачивается в обычный asm(«wdr»);<br>
+<i>wdt_enable(WDTO_1S)</i> — у тинек, чтобы случайно не похерить настройки ватчдога, есть специальная последовательность работы с битами. Обязательно сначала выставить биты WDE и WDCE, а потом в течение 4 тактов указать остальные настройки. Подробнее — читаем даташит.<br>
+<i>set_sleep_mode(SLEEP_MODE_PWR_DOWN)</i> — просто макросы, выставляющие соответствующие биты в регистрах MCUCR, MCUCSR и EMCUCR. Ничего сверхобычного.<br>
+<i>sleep_cpu()</i> — разворачивается в asm(«sleep»);<br>
+<br>
+Вот, в принципе, все основы для крепкого и здорового сна.<br>
+<br>
+<h4>Лунатизм, или бег по граблям во время сна</h4>0. Не забыть разрешить прерывания!<br>
+1. Не забыть настроить источники прерываний!<br>
+2. В случае просыпания по внешнему прерыванию по уровню необходимо обеспечить удержание уровня до момента полного просыпания процессора, иначе прерывание не отработается.<br>
+3. Засыпание процессора никак не изменяет состояние ног. При этом, если горел светодиод и потреблял 10 мА, то и после засыпания он будет гореть и потреблять те же 10 мА. <br>
+4. Не забывать про разные режимы работы ватчдога для тинек и для мег!<br>
+5. Заснуть можно, если все прерывания обработаны и мы находимся в главной программе. (<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment8433" rel="nofollow">спасибо dcoder</a>)<br>
+<br>
+<h4>Как спать и не храпеть</h4>Несмотря на то, что мы погасили главный осциллятор, есть еще асинхронные части кристалла, которые работают независимо. На то они и асинхронные, что независимо от центрального тактования. Типичный пример, который мы уже проходили — ватчдог.<br>
+<br>
+Естественно, если оно не нужно, то перед сном — отключать нафиг.<br>
+<br>
+<b>Brown-out Detector</b> — он работает асинхронно, всегда контролирует напряжение питания. В тиньках есть возможность его остановить программно (Brown-out Detection Circuit with Software Disable Function). Если он останавливается программно, то перед заходом в режим сна он отключается автоматически (не контролирует уровень питания во время сна), а при просыпании включается также автоматически.<br>
+<br>
+<b>Watchdog</b> — то же самое. Если он не нужен для просыпания, а батарейку жалко — отключаем.<br>
+<br>
+<b>АЦП и аналоговый компаратор</b> — в режиме Idle, если они не нужны — отключить. В режиме Power-Down отключаются сами.<br>
+<br>
+<b>Internal Voltage Reference</b> — внутренний источник опорного напряжения для АЦП и компаратора. Также используется для контроля напряжения питания (BOD). Отключается, если отключены все указанные компоненты.<br>
+<br>
+<b>Порты</b> — как я уже отмечал выше, порты сами не сбрасываются при переходе в режим сна. Соответственно, убедиться в правильном состоянии портов — задача программиста. На входящем порту есть буфер. Если ножка просто болтается в воздухе или на ней около VCC/2, то в некоторых случаях это буфер будет хаотично переключаться, потребляя дополнительную энергию. Для пущего энергосбережения (да и для проектирования хороший тон) нужно эти порты привести в какое-то определенное состояние. Подтянуть к питанию, например.<br>
+<br>
+У тиньки есть еще такой интересный порт — <b>PRR (Power Reduction Register)</b>. Он позволяет отключать некоторую периферию в режиме Idle и в обычном активном режиме. Например, у attiny13 в нем используются два бита: PRTIM0 и PRADC. Позволяют остановить тактирование таймера0 и АЦП соответственно. У более толстых тинек — больше периферии.<br>
+<br>
+PS. Добавлю — у атмела есть аппнот <a href="http://www.atmel.com/dyn/resources/prod_documents/doc8349.pdf" rel="nofollow">AVR4013 — PicoPower basics</a><br>
+В нем описали следующий опыт: от конденсатора питали ATMega88PA, она каждую секунду выполняла замер АЦП и посылала строку в USART. Без оптимизации питания — 6 секунд. С полной оптимизацией и засыпанием — более 217 секунд жизни.
+			</div> 
+
+
+
+	<ul class="tags">
+					<li><a href="http://we.easyelectronics.ru/tag/AVR/">AVR</a>, </li>
+					<li><a href="http://we.easyelectronics.ru/tag/%D1%83%D1%87%D0%B5%D0%B1%D0%BD%D0%B8%D0%BA/">учебник</a>, </li>
+					<li><a href="http://we.easyelectronics.ru/tag/sleep/">sleep</a>, </li>
+					<li><a href="http://we.easyelectronics.ru/tag/power/">power</a></li>
+		                                                             
+	</ul>
+
+
+
+	<ul class="info">
+		<li id="vote_area_topic_480" class="voting positive guest">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(480,this,1,&#39;topic&#39;);"></a>
+			<span id="vote_total_topic_480" class="total" title="всего проголосовало: 14"> +14 </span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(480,this,-1,&#39;topic&#39;);"></a>
+		</li>
+		<li class="date">09 мая 2011, 20:10</li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/steel_ne/">steel_ne</a></li>
+				
+    
+	</ul>
+			              <div id="ish-socbookmarks">
+  		<div id="vkontakte">
+	
+		<script type="text/javascript"><!--  
+		document.write(VK.Share.button(false,{type: "round", text: "Вконтакте"})); 
+		--></script>
+	
+	</div>
+			<div id="facebook">
+    
+    <script type="text/javascript"><!--
+		document.write('<iframe src="http://www.facebook.com/plugins/like.php?href='+escape(document.location.href)+'&layout=button_count&show_faces=false&width=100&action=like&font=arial&colorscheme=light&height=20" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:20px;" allowTransparency="true"></iframe>');
+    --></script><iframe src="about:blank" scrolling="no" frameborder="0" style="border: none; overflow: hidden; width: 100px; height: 20px; display: block;" allowtransparency="true"><iframe style="width: 30px; height: 19px; border: 0px;"></iframe></iframe>
+    
+	</div>
+			<div id="moimir">
+    
+    <script type="text/javascript"><!--
+    document.write('<a class="mrc__share" type="button_count" href="http://connect.mail.ru/share?share_url='+escape(document.location.href)+'">МойМир</a>');
+    --></script><a class="mrc__share mrc__share_done" type="button_count" href="http://connect.mail.ru/share?share_url=http%3A//we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html" style="white-space: nowrap; text-align: left; position: relative; width: auto; outline: 0px; text-decoration: none; height: 18px; font-size: 11px; line-height: 17px; overflow: hidden; font-weight: normal;"><small style="overflow: hidden; vertical-align: bottom;white-space:nowrap;text-align:left;line-height:17px;position:relative;width:auto;padding:0;margin:0;outline:0; text-decoration:none; display:inline-block; height:18px;background:url(http://img1.imgsmail.ru/r/new_share_buttons_sprite.gif) no-repeat 0 0; padding-left: 22px;line-height: 9px;"><i title="Поделиться страницей с друзьями в Моем Мире@Mail.Ru" style="vertical-align:top;float: none; white-space:nowrap;text-align:left;font-size:11px;line-height:9px;position:relative;width:auto;color:white;padding:0;margin:0;font-weight: bold; display:inline-block;background:url(http://img1.imgsmail.ru/r/new_share_buttons_sprite.gif) no-repeat right -19px; height: 14px; padding: 4px 5px 0 0; font-family: &#39;Lucida Grande&#39;,Tahoma,Verdana,Arial,sans-serif; font-szie: 11px; font-style: normal;cursor: pointer; line-height: 9px; *line-height: 13px; *padding-top: 2px; *height: 18px; ">МойМир</i><span title="Уже поделились" style="float: none; width:auto;color:black;padding:0;margin:0;display:none;background:url(http://img1.imgsmail.ru/r/new_share_buttons_sprite.gif) no-repeat left -123px; height: 13px; font-family: Tahoma; color: #000; padding: 5px 5px 0 10px; border-right: 1px solid #ffc70d; margin-left: 1px; cursor: pointer; font-weight: normal; font-style: normal; line-height: 8px; *line-height: 100%; *padding-top: 3px; *height: 18px">&nbsp;</span></small></a>
+    
+	</div>
+			<div id="tweetme">
+	
+		<script type="text/javascript">
+		tweetmeme_style = 'compact';
+		</script>
+		<script type="text/javascript" src="./AVR-Power management или как правильно спать_files/button.js"></script>
+	
+	</div>
+	    
+  	<div id="google_plusone">
+    <div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 106px; height: 24px; background: transparent;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 106px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 24px;" tabindex="0" vspace="0" width="100%" id="I0_1447233481660" name="I0_1447233481660" src="./AVR-Power management или как правильно спать_files/fastbutton.html" data-gapiattached="true" title="+1"></iframe></div>
+	</div>
+	      </div>
+	</div>	
+<div class="comments-header">
+	<h3>Комментарии (<span id="count-comments">44</span>)</h3>
+		<a href="http://we.easyelectronics.ru/rss/comments/480/" class="rss">RSS</a>
+		<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.collapseCommentAll(); return false;" onfocus="blur();">свернуть</a> /
+	<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.expandCommentAll(); return false;" onfocus="blur();">развернуть</a>
+</div>
+
+<a name="comments"></a>
+	
+	
+<div class="comments" id="comments">
+						
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_8424">
+		
+		
+<div id="comment_id_8424" class="comment not-admin ">
+	<a name="comment8424"></a>
+	
+	
+	<div class="folding" style="display: none;"></div>
+	
+	
+	<div id="comment_content_id_8424" class="content">
+			
+			Статья очень кстати. Большое спасибо за толковое описание. +1
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_8424" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(8424,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_8424" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(8424,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/Episcop/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24.jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/Episcop/">Episcop</a></li>
+		<li class="date">09 мая 2011, 20:18</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment8424" class="comment-link"></a></li>	
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+					</div>
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_8425">
+		
+		
+<div id="comment_id_8425" class="comment not-admin ">
+	<a name="comment8425"></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_8425" class="content">
+			
+			Надо же, не знал что новые тиньки могут по кускам обесточиваться на лету. Я с таким только на STM32 столкнулся, где любую периферию перед использованием надо затакатовать сначала.
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_8425" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(8425,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_8425" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(8425,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/DIHALT/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(1).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/DIHALT/">DIHALT</a></li>
+		<li class="date">09 мая 2011, 20:41</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment8425" class="comment-link"></a></li>	
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_8426">
+		
+		
+<div id="comment_id_8426" class="comment not-admin ">
+	<a name="comment8426"></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_8426" class="content">
+			
+			Та я сам офигел :)<br>
+Это, судя по всему, их технология picoPower
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_8426" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(8426,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_8426" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(8426,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/steel_ne/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(2).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/steel_ne/">steel_ne</a></li>
+		<li class="date">09 мая 2011, 20:47</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment8426" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(8426,8425); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_8427">
+		
+		
+<div id="comment_id_8427" class="comment not-admin ">
+	<a name="comment8427"></a>
+	
+	
+	<div class="folding" style="display: none;"></div>
+	
+	
+	<div id="comment_content_id_8427" class="content">
+			
+			На технологию вроде не тянет. А так прикольно, надо в других новых камнях и в А'шках эту фичу поискать.
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_8427" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(8427,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_8427" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(8427,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/DIHALT/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(1).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/DIHALT/">DIHALT</a></li>
+		<li class="date">09 мая 2011, 20:52</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment8427" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(8427,8426); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+					</div>
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_8428">
+		
+		
+<div id="comment_id_8428" class="comment not-admin ">
+	<a name="comment8428"></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_8428" class="content">
+			
+			В Мега48...168 тоже есть.
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_8428" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(8428,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_8428" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(8428,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/DIHALT/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(1).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/DIHALT/">DIHALT</a></li>
+		<li class="date">09 мая 2011, 20:55</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment8428" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(8428,8426); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_8429">
+		
+		
+<div id="comment_id_8429" class="comment not-admin ">
+	<a name="comment8429"></a>
+	
+	
+	<div class="folding" style="display: none;"></div>
+	
+	
+	<div id="comment_content_id_8429" class="content">
+			
+			Тоже глянул. На сайте атмела они помечены как picoPower среди списка мег
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_8429" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(8429,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_8429" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(8429,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/steel_ne/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(2).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/steel_ne/">steel_ne</a></li>
+		<li class="date">09 мая 2011, 21:13</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment8429" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(8429,8428); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		    	
+			</div></div></div></div>				
+		<div class="comment-wrapper" id="comment_wrapper_id_8430">
+		
+		
+<div id="comment_id_8430" class="comment not-admin ">
+	<a name="comment8430"></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_8430" class="content">
+			
+			Вообще, с увеличением частоты ток потребления растет не только от того, что надо перезарядить емкость затвора, но и от протекания тока (сквозного, если не ошибаюсь его называют) через транзисторы в момент переключения.<br>
+Я так понял у вотчдога совсем отдельный, собственный генератор, от которого он работает? Т.е. он будет работать даже без внешнего кварца было бы питание?
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_8430" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(8430,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_8430" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(8430,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/Flint/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(2).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/Flint/">Flint</a></li>
+		<li class="date">09 мая 2011, 21:36</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment8430" class="comment-link"></a></li>	
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_8431">
+		
+		
+<div id="comment_id_8431" class="comment not-admin ">
+	<a name="comment8431"></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_8431" class="content">
+			
+			Ну так а куда протекает этот ток? В какую-нить емкость или в затвор следующего транзистора. Как только емкость перезарядилась, то и ток прекратился, даже если транзистор открыт.<br>
+<br>
+У ватчдога отдельный таймер на 128 кГц. От него, кстати, может и тинька тактоваться. Тиньки, кстати, без внешнего кварца и идут — у них и так ног мало.<br>
+<br>
+А камни, которые идут с внешними кварцами, обладают еще двумя дополнительными режимами сна — там наоборот, работает кварцевый генератор, поскольку он мало жрет.
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_8431" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(8431,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_8431" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(8431,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/steel_ne/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(2).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/steel_ne/">steel_ne</a></li>
+		<li class="date">09 мая 2011, 21:45</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment8431" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(8431,8430); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_8432">
+		
+		
+<div id="comment_id_8432" class="comment not-admin ">
+	<a name="comment8432"></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_8432" class="content">
+			
+			Он протекает от + к — :) Если ячейка из 2-х транзисторов в верхнем и нижнем плече. Я думаю во всех КМОП также сделано и сегодня такая схема используется.
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_8432" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(8432,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_8432" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(8432,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/Flint/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(2).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/Flint/">Flint</a></li>
+		<li class="date">09 мая 2011, 21:59</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment8432" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(8432,8431); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_8436">
+		
+		
+<div id="comment_id_8436" class="comment not-admin ">
+	<a name="comment8436"></a>
+	
+	
+	<div class="folding" style="display: none;"></div>
+	
+	
+	<div id="comment_content_id_8436" class="content">
+			
+			Ну и ёмкость след. транзисторо, конечно, тоже надо зарядить
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_8436" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(8436,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_8436" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(8436,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/Flint/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(2).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/Flint/">Flint</a></li>
+		<li class="date">09 мая 2011, 22:21</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment8436" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(8436,8432); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		    	
+			</div></div>				
+		<div class="comment-wrapper" id="comment_wrapper_id_8437">
+		
+		
+<div id="comment_id_8437" class="comment not-admin ">
+	<a name="comment8437"></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_8437" class="content">
+			
+			<blockquote>Тиньки, кстати, без внешнего кварца и идут — у них и так ног мало.</blockquote>У тини15 (8 ног) он уже есть. XTAL1 и XTAL2 не обязательно на отдельные пины выводить. В тиньках (да и меге 8...168) их вместе с обычными IO линиями совмещают.
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_8437" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(8437,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_8437" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(8437,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/dcoder/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(3).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/dcoder/">dcoder</a></li>
+		<li class="date">09 мая 2011, 22:26</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment8437" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(8437,8431); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_8439">
+		
+		
+<div id="comment_id_8439" class="comment not-admin ">
+	<a name="comment8439"></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_8439" class="content">
+			
+			Вру. В тини15 его нету, но в тини25 уже есть.
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_8439" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(8439,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_8439" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(8439,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/dcoder/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(3).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/dcoder/">dcoder</a></li>
+		<li class="date">09 мая 2011, 22:36</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment8439" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(8439,8437); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_8443">
+		
+		
+<div id="comment_id_8443" class="comment not-admin ">
+	<a name="comment8443"></a>
+	
+	
+	<div class="folding" style="display: none;"></div>
+	
+	
+	<div id="comment_content_id_8443" class="content">
+			
+			Из шести ног две занимать кварцем… Это ваще какая-то особая ситуация должна быть.
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_8443" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(8443,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_8443" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(8443,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/steel_ne/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(2).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/steel_ne/">steel_ne</a></li>
+		<li class="date">09 мая 2011, 23:32</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment8443" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(8443,8439); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		    	
+			</div></div></div></div></div>				
+		<div class="comment-wrapper" id="comment_wrapper_id_8433">
+		
+		
+<div id="comment_id_8433" class="comment not-admin ">
+	<a name="comment8433"></a>
+	
+	
+	<div class="folding" style="display: none;"></div>
+	
+	
+	<div id="comment_content_id_8433" class="content">
+			
+			Забыл добавить (а может я не увидел), что засыпать можно только находяcь в основной программе, а попытка задремать посреди обработчика прерывания ни к чему не приведет. <b>Sleep</b> просто не сработает.<br>
+<br>
+Иногда прерывания юзать нельзя (надо отреагировать на какое-то специфическое событие, а не на будильник-INT0). В таком случае для снижения потребления есть пара хитростей:<br>
+<br>
+1) Снизить частоту. Это дает довольно ощютимое снижение энергопотребления, а проц продолжает работать. Только задержки придется считать вручную — с учетом делителя. Частоту можно снизить в 256 раз у некоторых тинек и мег. <br>
+Задетектив что-то важное, можно поднять частоту, считать/записать/обработать кучу данных и опять пойти отдыхать на низкой частоте.<br>
+<br>
+2) Глубокий сон + вачдог. Суть в том, что МК отваливается в power down сон, предварительно запустив собаку. Несколько десятков миллисекунд здорового сна и собака безжалостно будит MCU (Вачдог interrupt) или загоняет его в ресет. О том, что перезагрузка произошла по вине пса, можно узнать по биту <b>WDRF</b> в регистре <b>MCUSR</b>.
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_8433" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(8433,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_8433" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(8433,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/dcoder/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(3).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/dcoder/">dcoder</a></li>
+		<li class="date">09 мая 2011, 22:04</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment8433" class="comment-link"></a></li>	
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+					</div>
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_8438">
+		
+		
+<div id="comment_id_8438" class="comment not-admin ">
+	<a name="comment8438"></a>
+	
+	
+	<div class="folding" style="display: none;"></div>
+	
+	
+	<div id="comment_content_id_8438" class="content">
+			
+			<blockquote>Опять же, особенности тиньки — ватчдог в ней может генерировать сброс или прерывание (у мег такого нет — ватчдог только на резет).</blockquote>У мег это тоже есть. Как минимум у atmegaxx4 и atmegaxx8<br>
+<br>
+И да, про PRR тема не раскрыта. Кстати, глючновая штука — наступал пару раз на грабли с использованием PRR — теперь юзаю только через макросы который одним махом по всей проге отключить можно.
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_8438" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(8438,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_8438" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(8438,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/Alatar/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(2).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/Alatar/">Alatar</a></li>
+		<li class="date">09 мая 2011, 22:29</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment8438" class="comment-link"></a></li>	
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+					</div>
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_8444">
+		
+		
+<div id="comment_id_8444" class="comment not-admin ">
+	<a name="comment8444"></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_8444" class="content">
+			
+			<blockquote>А вот при переключении нам надо очень быстро перезарядить эту емкость. Соответственно, чем быстрее, тем больше тока надо вдуть в затвор. А чем больше ток при постоянном сопротивлении, тем больше потери.</blockquote><br>
+Больше ток, но зато меньше время его прохождения. Энергия потерь при этом не меняется.<br>
+Другое дело что при большей частоте больше переключений за то же время.
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_8444" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(8444,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_8444" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(8444,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/chakmidlot/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(4).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/chakmidlot/">chakmidlot</a></li>
+		<li class="date">10 мая 2011, 03:59</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment8444" class="comment-link"></a></li>	
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_8448">
+		
+		
+<div id="comment_id_8448" class="comment not-admin ">
+	<a name="comment8448"></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_8448" class="content">
+			
+			Потери пропорциональны квадрату тока, а время уменьшается всего лишь линейно. Емкость и сопротивление-то остались те же. Так что потери растут.
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_8448" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(8448,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_8448" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(8448,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/steel_ne/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(2).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/steel_ne/">steel_ne</a></li>
+		<li class="date">10 мая 2011, 09:37</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment8448" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(8448,8444); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_8469">
+		
+		
+<div id="comment_id_8469" class="comment not-admin ">
+	<a name="comment8469"></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_8469" class="content">
+			
+			Ток зарядки и разрядки конденсатора определяется сопротивлением, через которое он проходит. Если мы хотим увеличить ток, то для этого должны уменьшить сопротивление, на котором (вне зависимости от номинала) выделится энергия накопленная конденсатором W = CU^2 / 2.
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_8469" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(8469,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_8469" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(8469,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/chakmidlot/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(4).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/chakmidlot/">chakmidlot</a></li>
+		<li class="date">10 мая 2011, 23:36</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment8469" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(8469,8448); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_8495">
+		
+		
+<div id="comment_id_8495" class="comment not-admin ">
+	<a name="comment8495"></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_8495" class="content">
+			
+			эээ. А как ты предлагаешь уменьшить сопротивление? Представь себе, например, реальный триггер. Попытаемся его опрокинуть — открывается внешний транзистор, соединенный со входом (гейтом одного из транзисторов триггера), в гейт вдувается нужный заряд. Пока заряд не вдулся, течет ток. Как только емкость зарядилась, ток течь перестал. Естественно, сила тока зависит от напряжения питания. Поэтому и нормируется максимальная частота в зависимости от напряжения питания. Потому что при тех же сопротивлениях (а при изменениях частоты мы же схему кристалла не меняем) требуется больший ток. Больше ток — больше потери.
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_8495" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(8495,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_8495" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(8495,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/steel_ne/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(2).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/steel_ne/">steel_ne</a></li>
+		<li class="date">11 мая 2011, 05:30</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment8495" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(8495,8469); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_8499">
+		
+		
+<div id="comment_id_8499" class="comment not-admin ">
+	<a name="comment8499"></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_8499" class="content">
+			
+			при большей частоте больше выделяется энергии потому, что мы чаще перезаряжаем конденсатор, а не потому, что конкретная перезарядка стала энергозатратнее.
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_8499" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(8499,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_8499" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(8499,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/chakmidlot/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(4).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/chakmidlot/">chakmidlot</a></li>
+		<li class="date">11 мая 2011, 05:38</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment8499" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(8499,8495); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_8504">
+		
+		
+<div id="comment_id_8504" class="comment not-admin ">
+	<a name="comment8504"></a>
+	
+	
+	<div class="folding" style="display: none;"></div>
+	
+	
+	<div id="comment_content_id_8504" class="content">
+			
+			Или ёмкость в том транзисторе не успевает зарядиться на высоких частотах? Я так понимаю при этом уменьшится ток.
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_8504" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(8504,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_8504" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(8504,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/chakmidlot/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(4).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/chakmidlot/">chakmidlot</a></li>
+		<li class="date">11 мая 2011, 06:35</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment8504" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(8504,8499); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+					</div>
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_8526">
+		
+		
+<div id="comment_id_8526" class="comment not-admin ">
+	<a name="comment8526"></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_8526" class="content">
+			
+			Чем выще частота, тем меньше сопротивление конденсатора, тем больше ток протекает=)
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_8526" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(8526,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_8526" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(8526,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/kot_snork/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(5).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/kot_snork/">kot_snork</a></li>
+		<li class="date">11 мая 2011, 15:04</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment8526" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(8526,8499); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_8529">
+		
+		
+<div id="comment_id_8529" class="comment not-admin ">
+	<a name="comment8529"></a>
+	
+	
+	<div class="folding" style="display: none;"></div>
+	
+	
+	<div id="comment_content_id_8529" class="content">
+			
+			да, сопротивление меньше, а ток больше. Но я говорю про конкретное переключение: если конденсатор не полностью зарядился, то меньше энергии выделится на резисторе, по которому шёл ток.
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_8529" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(8529,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_8529" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(8529,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/chakmidlot/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(4).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/chakmidlot/">chakmidlot</a></li>
+		<li class="date">11 мая 2011, 15:18</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment8529" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(8529,8526); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		    	
+			</div></div></div></div></div></div></div>				
+		<div class="comment-wrapper" id="comment_wrapper_id_54048">
+		
+		
+<div id="comment_id_54048" class="comment not-admin ">
+	<a name="comment54048"></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_54048" class="content">
+			
+			А что будет с МК если отключить питание во время сна?
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_54048" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(54048,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_54048" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(54048,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/antfom/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(2).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/antfom/">antfom</a></li>
+		<li class="date">03 апреля 2012, 21:30</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment54048" class="comment-link"></a></li>	
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_54049">
+		
+		
+<div id="comment_id_54049" class="comment not-admin ">
+	<a name="comment54049"></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_54049" class="content">
+			
+			К.О. «Она утонула».
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_54049" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(54049,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_54049" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(54049,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/a9d/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(2).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/a9d/">a9d</a></li>
+		<li class="date">03 апреля 2012, 21:33</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment54049" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(54049,54048); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_54152">
+		
+		
+<div id="comment_id_54152" class="comment not-admin ">
+	<a name="comment54152"></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_54152" class="content">
+			
+			Не совсем понял?
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_54152" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(54152,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_54152" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(54152,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/antfom/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(2).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/antfom/">antfom</a></li>
+		<li class="date">04 апреля 2012, 11:17</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment54152" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(54152,54049); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_54154">
+		
+		
+<div id="comment_id_54154" class="comment not-admin ">
+	<a name="comment54154"></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_54154" class="content">
+			
+			А что будет, если телевизор из розетки вырубить? Смысл вопроса. Спит контроллер, жрет мало. Отрубил питание, он сожрал энергию из фильтров питания и TOTAL K.O.(C)
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_54154" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(54154,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_54154" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(54154,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/lleeloo/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24.gif" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/lleeloo/">lleeloo</a></li>
+		<li class="date">04 апреля 2012, 11:29</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment54154" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(54154,54152); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_54172">
+		
+		
+<div id="comment_id_54172" class="comment not-admin ">
+	<a name="comment54172"></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_54172" class="content">
+			
+			После такого контроллер вообще не запускается, приходиться пререпрошивать
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_54172" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(54172,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_54172" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(54172,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/antfom/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(2).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/antfom/">antfom</a></li>
+		<li class="date">04 апреля 2012, 12:13</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment54172" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(54172,54154); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_54221">
+		
+		
+<div id="comment_id_54221" class="comment not-admin ">
+	<a name="comment54221"></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_54221" class="content">
+			
+			С какого перепуга вдруг. Раскройте страшную тайну!
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_54221" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(54221,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_54221" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(54221,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/lleeloo/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24.gif" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/lleeloo/">lleeloo</a></li>
+		<li class="date">04 апреля 2012, 15:39</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment54221" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(54221,54172); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_54232">
+		
+		
+<div id="comment_id_54232" class="comment not-admin ">
+	<a name="comment54232"></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_54232" class="content">
+			
+			Кто-нибудь нормально ответит, объяснит в чем дело, а то отвечают одни зазнавшиеся тела.
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_54232" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(54232,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_54232" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(54232,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/antfom/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(2).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/antfom/">antfom</a></li>
+		<li class="date">04 апреля 2012, 16:05</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment54232" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(54232,54221); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_54238">
+		
+		
+<div id="comment_id_54238" class="comment not-admin ">
+	<a name="comment54238"></a>
+	
+	
+	<div class="folding" style="display: none;"></div>
+	
+	
+	<div id="comment_content_id_54238" class="content">
+			
+			Во-первых, не тот у Вас уровень, чтобы остальных «зазнавшимися телами» называть.<br>
+Во-вторых, что вы там у себя в проекте делаете, какая у вас схема и задача, при каких условиях все работает, знают только астрономы и Вы.<br>
+В-третьих, если у Вас контроллер требует перепрошивки после того, как он вошел в сон и пропало питание, значит емкости на Вашей плате не разрядились до конца, и контроллер может питаться от них.<br>
+P.S. Грамотно заданный вопрос всегда найдет свой ответ. Здесь про атомные технологии ни кто не говорит. Здесь сообщество (читай друзья), к которым всегда можно обратиться в личку. Вежливость — залог хороших отношений и правильного расположения других участников к Вашей персоне. Удачи!
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_54238" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(54238,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_54238" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(54238,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/lleeloo/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24.gif" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/lleeloo/">lleeloo</a></li>
+		<li class="date">04 апреля 2012, 16:17</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment54238" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(54238,54232); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+									
+					</div>
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_54250">
+		
+		
+<div id="comment_id_54250" class="comment not-admin ">
+	<a name="comment54250"></a>
+	
+	
+	<div class="folding" style="display: none;"></div>
+	
+	
+	<div id="comment_content_id_54250" class="content">
+			
+			Ну вот, можете ведь когда захотите
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_54250" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(54250,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_54250" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(54250,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/antfom/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(2).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/antfom/">antfom</a></li>
+		<li class="date">04 апреля 2012, 17:43</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment54250" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(54250,54238); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+									
+					</div>
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_54251">
+		
+		
+<div id="comment_id_54251" class="comment not-admin ">
+	<a name="comment54251"></a>
+	
+	
+	<div class="folding" style="display: none;"></div>
+	
+	
+	<div id="comment_content_id_54251" class="content">
+			
+			Повторюсь, как правило никто гадать не будет «почему у Вас не так, как Вам хочется или как должно быть». Конкретный вопрос — конкретный ответ. Жаль, что у Вас не было желания уточнить проблему и получить сразу же конкретный ответ. Успехов в начинаниях.
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_54251" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(54251,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_54251" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(54251,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/lleeloo/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24.gif" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/lleeloo/">lleeloo</a></li>
+		<li class="date">04 апреля 2012, 17:53</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment54251" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(54251,54250); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+									
+					</div>
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_54253">
+		
+		
+<div id="comment_id_54253" class="comment not-admin ">
+	<a name="comment54253"></a>
+	
+	
+	<div class="folding" style="display: none;"></div>
+	
+	
+	<div id="comment_content_id_54253" class="content">
+			
+			Я так понял, что эта «ПРОБЛЕМА» обсуждалась на <a href="http://radioparty.ru/???" rel="nofollow">radioparty.ru???</a> Просто прочитал Ваш профиль и глянул на эту страничку…
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_54253" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(54253,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_54253" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(54253,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/lleeloo/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24.gif" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/lleeloo/">lleeloo</a></li>
+		<li class="date">04 апреля 2012, 18:05</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment54253" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(54253,54250); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		    	
+			</div></div></div></div></div></div></div>				
+		<div class="comment-wrapper" id="comment_wrapper_id_54381">
+		
+		
+<div id="comment_id_54381" class="comment not-admin ">
+	<a name="comment54381"></a>
+	
+	
+	<div class="folding" style="display: none;"></div>
+	
+	
+	<div id="comment_content_id_54381" class="content">
+			
+			ничего с ним не будет. просто еще один обычный день в жизни контроллера. когда опять питание подашь, он начнет работать с начала.
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_54381" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(54381,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_54381" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(54381,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/Medik88/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(6).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/Medik88/">Medik88</a></li>
+		<li class="date">05 апреля 2012, 10:47</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment54381" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(54381,54048); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		    	
+			</div></div>				
+		<div class="comment-wrapper" id="comment_wrapper_id_60313">
+		
+		
+<div id="comment_id_60313" class="comment not-admin ">
+	<a name="comment60313"></a>
+	
+	
+	<div class="folding" style="display: none;"></div>
+	
+	
+	<div id="comment_content_id_60313" class="content">
+			
+			это видео не по вашей статье снято? :)<br>
+<a href="http://www.youtube.com/watch?v=Ob5fHhPDqvU" rel="nofollow">www.youtube.com/watch?v=Ob5fHhPDqvU</a>
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_60313" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(60313,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_60313" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(60313,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/286/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24.png" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/286/">286</a></li>
+		<li class="date">06 мая 2012, 19:56</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment60313" class="comment-link"></a></li>	
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+					</div>
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_130598">
+		
+		
+<div id="comment_id_130598" class="comment not-admin ">
+	<a name="comment130598"></a>
+	
+	
+	<div class="folding" style="display: none;"></div>
+	
+	
+	<div id="comment_content_id_130598" class="content">
+			
+			Всем привет. Не могу придумать как запускать АЦП в режиме ADC Noise Reduction для преобразования в заданные промежутки времени.<br>
+Делаю устройство которое измеряет сетевое напряжение 50Гц. Настроил таймер чтобы за период сети срабатывало 128 прерываний, и в каждом прерывании запускаю АЦП на преобразование. Тут всё работает проблем нет. Хочется получить большей точности, а для этого усыпить микроконтроллер во время преобразования АЦП, но я не смогу усыпить микроконтроллер из прерывания. Если в прерывании только выставлять какой либо флаг, а в основной программе проверять этот флаг, и при необходимости запускать АЦП, то время семплирования будет гулять, и в итоге я получу ерунду, а не измеренное значение.<br>
+Может у Вас есть какие то идеи? Спасибо.
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_130598" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(130598,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_130598" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(130598,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/mcsik/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(2).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/mcsik/">mcsik</a></li>
+		<li class="date">12 мая 2014, 16:39</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment130598" class="comment-link"></a></li>	
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+					</div>
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_136879">
+		
+		
+<div id="comment_id_136879" class="comment not-admin ">
+	<a name="comment136879"></a>
+	
+	
+	<div class="folding" style="display: none;"></div>
+	
+	
+	<div id="comment_content_id_136879" class="content">
+			
+			маааленькое уточнение — PCINT может будить МК из любого режима
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_136879" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(136879,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_136879" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(136879,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/KalyakaMalyaka/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(2).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/KalyakaMalyaka/">KalyakaMalyaka</a></li>
+		<li class="date">19 июня 2014, 18:59</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment136879" class="comment-link"></a></li>	
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+					</div>
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_142756">
+		
+		
+<div id="comment_id_142756" class="comment not-admin ">
+	<a name="comment142756"></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_142756" class="content">
+			
+			вот интересно, если ресет к земле прижать — будет ли МК что либо потреблять?
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_142756" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(142756,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_142756" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(142756,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/XanderEVG/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(2).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/XanderEVG/">XanderEVG</a></li>
+		<li class="date">08 августа 2014, 14:38</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment142756" class="comment-link"></a></li>	
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_142773">
+		
+		
+<div id="comment_id_142773" class="comment not-admin ">
+	<a name="comment142773"></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_142773" class="content">
+			
+			Должен по идее, там же подтяжка.
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_142773" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(142773,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_142773" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(142773,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/Vga/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(7).gif" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/Vga/">Vga</a></li>
+		<li class="date">08 августа 2014, 18:58</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment142773" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(142773,142756); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_142832">
+		
+		
+<div id="comment_id_142832" class="comment not-admin ">
+	<a name="comment142832"></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_142832" class="content">
+			
+			ну кроме тока через подтяжку. <br>
+или вот так например: сделать выключатель, в одном положении на ресет подается +5В через 10Ком, в другом зацеплено на землю<br>
+<img src="./AVR-Power management или как правильно спать_files/687ca5.png">
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_142832" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(142832,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_142832" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(142832,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/XanderEVG/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(2).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/XanderEVG/">XanderEVG</a></li>
+		<li class="date">10 августа 2014, 14:26</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment142832" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(142832,142773); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_142841">
+		
+		
+<div id="comment_id_142841" class="comment not-admin ">
+	<a name="comment142841"></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_142841" class="content">
+			
+			Там внутренняя подтяжка. От внешней можно отказаться вообще.
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_142841" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(142841,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_142841" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(142841,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/Vga/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(7).gif" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/Vga/">Vga</a></li>
+		<li class="date">10 августа 2014, 17:46</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment142841" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(142841,142832); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_142898">
+		
+		
+<div id="comment_id_142898" class="comment not-admin ">
+	<a name="comment142898"></a>
+	
+	
+	<div class="folding"></div>
+	
+	
+	<div id="comment_content_id_142898" class="content">
+			
+			Нуу, внутренняя там 100500 КОм, по этому тупо пальцем сбрасывается без подтяжки:) По этому не надо от неё отказываться:)
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_142898" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(142898,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_142898" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(142898,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/zloiMOZG/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(8).jpg" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/zloiMOZG/">zloiMOZG</a></li>
+		<li class="date">11 августа 2014, 17:23</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment142898" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(142898,142841); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+									
+				
+		 
+				
+		<div class="comment-wrapper" id="comment_wrapper_id_142899">
+		
+		
+<div id="comment_id_142899" class="comment not-admin ">
+	<a name="comment142899"></a>
+	
+	
+	<div class="folding" style="display: none;"></div>
+	
+	
+	<div id="comment_content_id_142899" class="content">
+			
+			Бывает. Хотя если не использовать в среде с помехами, исключить контакт с пальцем и не тянуть дорожку ресета через полплаты (а лучше — вообще не тянуть) — то можно и встроенной обойтись.<br>
+<br>
+Но вопрос-то был не в этом, а в том, что с придавленным ресетом проц все равно будет жрать через подтяжку ресета, и жрать не так мало — она так килоом сто.
+			</div>
+	
+	
+							
+		<div id="vote_area_comment_142899" class="voting  guest     ">
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="plus" onclick="return ls.vote.vote(142899,this,1,&#39;comment&#39;);"></a>
+			<span id="vote_total_comment_142899" class="total">0</span>
+			<a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" class="minus" onclick="return ls.vote.vote(142899,this,-1,&#39;comment&#39;);"></a>
+		</div>
+		
+	
+	<ul class="info">
+		<li class="avatar"><a href="http://we.easyelectronics.ru/profile/Vga/"><img src="./AVR-Power management или как правильно спать_files/avatar_24x24(7).gif" alt="avatar"></a></li>
+		<li class="username"><a href="http://we.easyelectronics.ru/profile/Vga/">Vga</a></li>
+		<li class="date">11 августа 2014, 17:56</li>
+				<li><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#comment142899" class="comment-link"></a></li>	
+					<li class="goto-comment-parent"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" onclick="ls.comments.goToParentComment(142899,142898); return false;" title="Ответ на">↑</a></li>
+				<li class="goto-comment-child"><a href="http://we.easyelectronics.ru/AVR/avr-power-management-ili-kak-pravilno-spat.html#" title="Обратно к ответу">↓</a></li>
+								
+	</ul>
+	
+</div>		
+							</div></div></div></div></div></div>    
+			</div>				
+	
+
+			Только зарегистрированные и авторизованные пользователи могут оставлять комментарии.
+		
+
+
+	
+
+
+			
+			</div><!-- /content-inner -->
+		</div><!-- /content -->
+
+					<div id="sidebar">
+										<div class="block stream" id="block_stream">
+	<h2>Прямой эфир</h2>
+	
+	
+	<ul class="switcher">						
+		<li id="block_stream_item_comment" class="active">Комментарии</li>
+		<li id="block_stream_item_topic">Публикации</li>
+		
+		
+	</ul>					
+	
+	
+	<div class="block-content" id="block_stream_content">
+		<ul class="list">
+									
+		<li class="even">
+			<a href="http://we.easyelectronics.ru/profile/Alex_EXE/" class="user">Alex_EXE</a> →
+			<span class="stream-comment-icon"></span>
+			<a href="http://we.easyelectronics.ru/zloiMOZG/com-port-terminal.html#comment164151" class="topic-title">COM Port Terminal</a>
+			<span>220</span> →
+			<a href="http://we.easyelectronics.ru/my/zloiMOZG/" class="blog-title">Блог им. zloiMOZG</a>
+		</li>
+									
+		<li>
+			<a href="http://we.easyelectronics.ru/profile/mishgan_zp/" class="user">mishgan_zp</a> →
+			<span class="stream-comment-icon"></span>
+			<a href="http://we.easyelectronics.ru/Tools/vopros-pro-izolentu.html#comment164150" class="topic-title">Вопрос про изоленту.</a>
+			<span>26</span> →
+			<a href="http://we.easyelectronics.ru/blog/Tools/" class="blog-title">Инструмент</a>
+		</li>
+									
+		<li class="even">
+			<a href="http://we.easyelectronics.ru/profile/grinch/" class="user">grinch</a> →
+			<span class="stream-comment-icon"></span>
+			<a href="http://we.easyelectronics.ru/trengtor/o-tochnosti-narodnogo-precizionnogo-multimetra-u71.html#comment164149" class="topic-title">О точности «народного» прецизионного мультиметра U71</a>
+			<span>8</span> →
+			<a href="http://we.easyelectronics.ru/my/trengtor/" class="blog-title">Блог им. trengtor</a>
+		</li>
+									
+		<li>
+			<a href="http://we.easyelectronics.ru/profile/e_mc2/" class="user">e_mc2</a> →
+			<span class="stream-comment-icon"></span>
+			<a href="http://we.easyelectronics.ru/AVR/novaya-atmel-studio-7-importiruet-kod-iz-arduino-ide-v-odin-klik.html#comment164146" class="topic-title">Новая Atmel Studio 7 импортирует код из Arduino IDE в один клик</a>
+			<span>56</span> →
+			<a href="http://we.easyelectronics.ru/blog/AVR/" class="blog-title">AVR</a>
+		</li>
+									
+		<li class="even">
+			<a href="http://we.easyelectronics.ru/profile/VicSimon/" class="user">VicSimon</a> →
+			<span class="stream-comment-icon"></span>
+			<a href="http://we.easyelectronics.ru/VeniaminCaver/predstavlyayus-soobschestvu-menya-zovut-veniamin-keyver.html#comment164141" class="topic-title">Представляюсь сообществу - меня зовут Вениамин Кейвер.</a>
+			<span>92</span> →
+			<a href="http://we.easyelectronics.ru/my/VeniaminCaver/" class="blog-title">Блог им. VeniaminCaver</a>
+		</li>
+									
+		<li>
+			<a href="http://we.easyelectronics.ru/profile/xar/" class="user">xar</a> →
+			<span class="stream-comment-icon"></span>
+			<a href="http://we.easyelectronics.ru/woddy/zakaz-plat-v-pselectronovosibirsk.html#comment164133" class="topic-title">заказ плат в pselectro(Новосибирск)</a>
+			<span>35</span> →
+			<a href="http://we.easyelectronics.ru/my/woddy/" class="blog-title">Блог им. woddy</a>
+		</li>
+									
+		<li class="even">
+			<a href="http://we.easyelectronics.ru/profile/Vga/" class="user">Vga</a> →
+			<span class="stream-comment-icon"></span>
+			<a href="http://we.easyelectronics.ru/AVR/obzor-programmatora-avrisp-mkii.html#comment164124" class="topic-title">Обзор программатора AVRISP-MKII</a>
+			<span>59</span> →
+			<a href="http://we.easyelectronics.ru/blog/AVR/" class="blog-title">AVR</a>
+		</li>
+									
+		<li>
+			<a href="http://we.easyelectronics.ru/profile/Vga/" class="user">Vga</a> →
+			<span class="stream-comment-icon"></span>
+			<a href="http://we.easyelectronics.ru/power-electronics/zaryadnoe-ustroystvo-na-max713-impulsnyy-rezhim.html#comment164122" class="topic-title">Зарядное устройство на MAX713. Импульсный режим.</a>
+			<span>46</span> →
+			<a href="http://we.easyelectronics.ru/blog/power-electronics/" class="blog-title">Силовая электроника</a>
+		</li>
+									
+		<li class="even">
+			<a href="http://we.easyelectronics.ru/profile/amaora/" class="user">amaora</a> →
+			<span class="stream-comment-icon"></span>
+			<a href="http://we.easyelectronics.ru/amaora/a-sinus-to-ne-nastoyaschiy.html#comment164113" class="topic-title">А синус то не настоящий</a>
+			<span>2</span> →
+			<a href="http://we.easyelectronics.ru/my/amaora/" class="blog-title">Блог им. amaora</a>
+		</li>
+									
+		<li>
+			<a href="http://we.easyelectronics.ru/profile/vert/" class="user">vert</a> →
+			<span class="stream-comment-icon"></span>
+			<a href="http://we.easyelectronics.ru/msp430/msp430-nachalo-msp-fet-cherez-lpt-port.html#comment164087" class="topic-title">MSP430. Начало. MSP-FET через LPT порт</a>
+			<span>41</span> →
+			<a href="http://we.easyelectronics.ru/blog/msp430/" class="blog-title">MSP430</a>
+		</li>
+									
+		<li class="even">
+			<a href="http://we.easyelectronics.ru/profile/Vga/" class="user">Vga</a> →
+			<span class="stream-comment-icon"></span>
+			<a href="http://we.easyelectronics.ru/part/zaryadnoe-ustroystvo-dlya-li-ion--na-tr4056.html#comment164072" class="topic-title">Зарядное устройство для Li-ion  на ТР4056</a>
+			<span>82</span> →
+			<a href="http://we.easyelectronics.ru/blog/part/" class="blog-title">Деталька</a>
+		</li>
+									
+		<li>
+			<a href="http://we.easyelectronics.ru/profile/plcist/" class="user">plcist</a> →
+			<span class="stream-comment-icon"></span>
+			<a href="http://we.easyelectronics.ru/Soft/interesnoe-na-moy-vzglyad-svoystvo-hor-prodolzhenie.html#comment164058" class="topic-title">Интересное (на мой взгляд) свойство ХОR - продолжение.</a>
+			<span>86</span> →
+			<a href="http://we.easyelectronics.ru/blog/Soft/" class="blog-title">Алгоритмы и программные решения</a>
+		</li>
+									
+		<li class="even">
+			<a href="http://we.easyelectronics.ru/profile/podkassetnik/" class="user">podkassetnik</a> →
+			<span class="stream-comment-icon"></span>
+			<a href="http://we.easyelectronics.ru/HomeTech/izgotovlenie-dvuhstoronney-pechatnoy-platy-pri-pomoschi-plenochnogo-fotorezista-pnf-vsch.html#comment164051" class="topic-title">Изготовление двухсторонней печатной платы при помощи пленочного фоторезиста ПНФ-ВЩ</a>
+			<span>235</span> →
+			<a href="http://we.easyelectronics.ru/blog/HomeTech/" class="blog-title">Технологии</a>
+		</li>
+									
+		<li>
+			<a href="http://we.easyelectronics.ru/profile/kvm/" class="user">kvm</a> →
+			<span class="stream-comment-icon"></span>
+			<a href="http://we.easyelectronics.ru/kovz/ispolzovanie-avtomatnogo-programirovaniya-na-primere-quantum-leaps-vstuplenie.html#comment164015" class="topic-title">Использование автоматного програмирования на примере Quantum Leaps. Вступление.</a>
+			<span>19</span> →
+			<a href="http://we.easyelectronics.ru/my/kovz/" class="blog-title">Блог им. kovz</a>
+		</li>
+									
+		<li class="even">
+			<a href="http://we.easyelectronics.ru/profile/Mihail/" class="user">Mihail</a> →
+			<span class="stream-comment-icon"></span>
+			<a href="http://we.easyelectronics.ru/STM32/stm32---bit-banding.html#comment164012" class="topic-title">STM32 - Bit Banding</a>
+			<span>89</span> →
+			<a href="http://we.easyelectronics.ru/blog/STM32/" class="blog-title">STM32</a>
+		</li>
+									
+		<li>
+			<a href="http://we.easyelectronics.ru/profile/Mihail/" class="user">Mihail</a> →
+			<span class="stream-comment-icon"></span>
+			<a href="http://we.easyelectronics.ru/podkassetnik/polzuetes-li-vy-v-povsednevnoy-zhizni-interfeysom-rs232.html#comment164010" class="topic-title">Пользуетесь ли вы в повседневной жизни интерфейсом RS232?</a>
+			<span>48</span> →
+			<a href="http://we.easyelectronics.ru/my/podkassetnik/" class="blog-title">Блог им. podkassetnik</a>
+		</li>
+									
+		<li class="even">
+			<a href="http://we.easyelectronics.ru/profile/trengtor/" class="user">trengtor</a> →
+			<span class="stream-comment-icon"></span>
+			<a href="http://we.easyelectronics.ru/Santik/otvet-veniamincaver-ot-28-oktyabrya-2015-1140.html#comment164005" class="topic-title">Ответ  VeniaminCaver от 28 октября 2015, 11:40</a>
+			<span>12</span> →
+			<a href="http://we.easyelectronics.ru/my/Santik/" class="blog-title">Блог им. Santik</a>
+		</li>
+									
+		<li>
+			<a href="http://we.easyelectronics.ru/profile/B-Screw/" class="user">B-Screw</a> →
+			<span class="stream-comment-icon"></span>
+			<a href="http://we.easyelectronics.ru/QuaziKing2/zametki-na-polyah-maska-frezy.html#comment164003" class="topic-title">Заметки на полях (маска, фрезы)</a>
+			<span>11</span> →
+			<a href="http://we.easyelectronics.ru/my/QuaziKing2/" class="blog-title">Блог им. QuaziKing2</a>
+		</li>
+									
+		<li class="even">
+			<a href="http://we.easyelectronics.ru/profile/yanvasilij/" class="user">yanvasilij</a> →
+			<span class="stream-comment-icon"></span>
+			<a href="http://we.easyelectronics.ru/GYUR22/max13487-part2.html#comment163988" class="topic-title">MAX13487 part2</a>
+			<span>14</span> →
+			<a href="http://we.easyelectronics.ru/my/GYUR22/" class="blog-title">Блог им. GYUR22</a>
+		</li>
+									
+		<li>
+			<a href="http://we.easyelectronics.ru/profile/_pv/" class="user">_pv</a> →
+			<span class="stream-comment-icon"></span>
+			<a href="http://we.easyelectronics.ru/msp430/msp430-makrosy-dlya-raboty-s-gpio-bonus-rezhim-open-drain.html#comment163965" class="topic-title">MSP430 макросы для работы с GPIO + бонус: режим Open Drain</a>
+			<span>28</span> →
+			<a href="http://we.easyelectronics.ru/blog/msp430/" class="blog-title">MSP430</a>
+		</li>
+	</ul>
+
+
+<div class="bottom">
+	<a href="http://we.easyelectronics.ru/comments/">Весь эфир</a> | <a href="http://we.easyelectronics.ru/rss/allcomments/">RSS</a>
+</div>
+	</div>
+</div>
+
+
+															<div class="block tags">
+	<ul class="cloud">						
+					<li><a class="w1" rel="tag" href="http://we.easyelectronics.ru/tag/1-Wire/">1-Wire</a></li>	
+					<li><a class="w1" rel="tag" href="http://we.easyelectronics.ru/tag/Altera/">Altera</a></li>	
+					<li><a class="w3" rel="tag" href="http://we.easyelectronics.ru/tag/arduino/">arduino</a></li>	
+					<li><a class="w4" rel="tag" href="http://we.easyelectronics.ru/tag/ARM/">ARM</a></li>	
+					<li><a class="w10" rel="tag" href="http://we.easyelectronics.ru/tag/AVR/">AVR</a></li>	
+					<li><a class="w1" rel="tag" href="http://we.easyelectronics.ru/tag/avr-gcc/">avr-gcc</a></li>	
+					<li><a class="w1" rel="tag" href="http://we.easyelectronics.ru/tag/C%2B%2B/">C++</a></li>	
+					<li><a class="w3" rel="tag" href="http://we.easyelectronics.ru/tag/DIY/">DIY</a></li>	
+					<li><a class="w1" rel="tag" href="http://we.easyelectronics.ru/tag/enc28j60/">enc28j60</a></li>	
+					<li><a class="w2" rel="tag" href="http://we.easyelectronics.ru/tag/ethernet/">ethernet</a></li>	
+					<li><a class="w2" rel="tag" href="http://we.easyelectronics.ru/tag/FPGA/">FPGA</a></li>	
+					<li><a class="w2" rel="tag" href="http://we.easyelectronics.ru/tag/gcc/">gcc</a></li>	
+					<li><a class="w3" rel="tag" href="http://we.easyelectronics.ru/tag/I2C/">I2C</a></li>	
+					<li><a class="w2" rel="tag" href="http://we.easyelectronics.ru/tag/IAR/">IAR</a></li>	
+					<li><a class="w1" rel="tag" href="http://we.easyelectronics.ru/tag/KEIL/">KEIL</a></li>	
+					<li><a class="w3" rel="tag" href="http://we.easyelectronics.ru/tag/LaunchPad/">LaunchPad</a></li>	
+					<li><a class="w5" rel="tag" href="http://we.easyelectronics.ru/tag/LCD/">LCD</a></li>	
+					<li><a class="w4" rel="tag" href="http://we.easyelectronics.ru/tag/led/">led</a></li>	
+					<li><a class="w1" rel="tag" href="http://we.easyelectronics.ru/tag/linux/">linux</a></li>	
+					<li><a class="w2" rel="tag" href="http://we.easyelectronics.ru/tag/LPCXpresso/">LPCXpresso</a></li>	
+					<li><a class="w5" rel="tag" href="http://we.easyelectronics.ru/tag/MSP430/">MSP430</a></li>	
+					<li><a class="w2" rel="tag" href="http://we.easyelectronics.ru/tag/nxp/">nxp</a></li>	
+					<li><a class="w2" rel="tag" href="http://we.easyelectronics.ru/tag/PCB/">PCB</a></li>	
+					<li><a class="w3" rel="tag" href="http://we.easyelectronics.ru/tag/PIC/">PIC</a></li>	
+					<li><a class="w2" rel="tag" href="http://we.easyelectronics.ru/tag/pinboard2/">pinboard2</a></li>	
+					<li><a class="w3" rel="tag" href="http://we.easyelectronics.ru/tag/RTOS/">RTOS</a></li>	
+					<li><a class="w10" rel="tag" href="http://we.easyelectronics.ru/tag/STM32/">STM32</a></li>	
+					<li><a class="w6" rel="tag" href="http://we.easyelectronics.ru/tag/STM8/">STM8</a></li>	
+					<li><a class="w2" rel="tag" href="http://we.easyelectronics.ru/tag/STM8L/">STM8L</a></li>	
+					<li><a class="w3" rel="tag" href="http://we.easyelectronics.ru/tag/TI/">TI</a></li>	
+					<li><a class="w4" rel="tag" href="http://we.easyelectronics.ru/tag/UART/">UART</a></li>	
+					<li><a class="w1" rel="tag" href="http://we.easyelectronics.ru/tag/USART/">USART</a></li>	
+					<li><a class="w5" rel="tag" href="http://we.easyelectronics.ru/tag/USB/">USB</a></li>	
+					<li><a class="w1" rel="tag" href="http://we.easyelectronics.ru/tag/%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC/">алгоритм</a></li>	
+					<li><a class="w2" rel="tag" href="http://we.easyelectronics.ru/tag/%D0%B0%D1%81%D1%81%D0%B5%D0%BC%D0%B1%D0%BB%D0%B5%D1%80/">ассемблер</a></li>	
+					<li><a class="w2" rel="tag" href="http://we.easyelectronics.ru/tag/%D0%90%D0%A6%D0%9F/">АЦП</a></li>	
+					<li><a class="w1" rel="tag" href="http://we.easyelectronics.ru/tag/%D0%B1%D0%BB%D0%BE%D0%BA%20%D0%BF%D0%B8%D1%82%D0%B0%D0%BD%D0%B8%D1%8F/">блок питания</a></li>	
+					<li><a class="w1" rel="tag" href="http://we.easyelectronics.ru/tag/%D0%B2%D0%BE%D0%BF%D1%80%D0%BE%D1%81/">вопрос</a></li>	
+					<li><a class="w2" rel="tag" href="http://we.easyelectronics.ru/tag/%D0%B4%D0%B5%D1%82%D0%B0%D0%BB%D1%8C%D0%BA%D0%B0/">деталька</a></li>	
+					<li><a class="w1" rel="tag" href="http://we.easyelectronics.ru/tag/%D0%B4%D0%B8%D1%81%D0%BF%D0%BB%D0%B5%D0%B9/">дисплей</a></li>	
+					<li><a class="w3" rel="tag" href="http://we.easyelectronics.ru/tag/%D0%B8%D0%B4%D0%B5%D1%8F/">идея</a></li>	
+					<li><a class="w6" rel="tag" href="http://we.easyelectronics.ru/tag/%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BC%D0%B5%D0%BD%D1%82/">инструмент</a></li>	
+					<li><a class="w6" rel="tag" href="http://we.easyelectronics.ru/tag/%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%81/">конкурс</a></li>	
+					<li><a class="w5" rel="tag" href="http://we.easyelectronics.ru/tag/%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D1%812/">конкурс2</a></li>	
+					<li><a class="w2" rel="tag" href="http://we.easyelectronics.ru/tag/%D0%9B%D0%A3%D0%A2/">ЛУТ</a></li>	
+					<li><a class="w2" rel="tag" href="http://we.easyelectronics.ru/tag/%D0%BC%D0%B8%D0%BA%D1%80%D0%BE%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D0%BB%D0%B5%D1%80%D1%8B/">микроконтроллеры</a></li>	
+					<li><a class="w5" rel="tag" href="http://we.easyelectronics.ru/tag/%D0%BD%D0%B0%D1%87%D0%B8%D0%BD%D0%B0%D1%8E%D1%89%D0%B8%D0%BC/">начинающим</a></li>	
+					<li><a class="w2" rel="tag" href="http://we.easyelectronics.ru/tag/%D0%BE%D0%B1%D0%B7%D0%BE%D1%80/">обзор</a></li>	
+					<li><a class="w2" rel="tag" href="http://we.easyelectronics.ru/tag/%D0%9E%D1%82%D0%BB%D0%B0%D0%B4%D0%BE%D1%87%D0%BD%D0%B0%D1%8F%20%D0%BF%D0%BB%D0%B0%D1%82%D0%B0/">Отладочная плата</a></li>	
+					<li><a class="w1" rel="tag" href="http://we.easyelectronics.ru/tag/%D0%BF%D0%B0%D1%8F%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA/">паяльник</a></li>	
+					<li><a class="w2" rel="tag" href="http://we.easyelectronics.ru/tag/%D0%BF%D0%B5%D1%87%D0%B0%D1%82%D0%BD%D0%B0%D1%8F%20%D0%BF%D0%BB%D0%B0%D1%82%D0%B0/">печатная плата</a></li>	
+					<li><a class="w1" rel="tag" href="http://we.easyelectronics.ru/tag/%D0%BF%D0%B8%D1%82%D0%B0%D0%BD%D0%B8%D0%B5/">питание</a></li>	
+					<li><a class="w2" rel="tag" href="http://we.easyelectronics.ru/tag/%D0%BF%D0%BB%D0%B0%D1%82%D0%B0/">плата</a></li>	
+					<li><a class="w5" rel="tag" href="http://we.easyelectronics.ru/tag/%D0%9F%D0%9B%D0%98%D0%A1/">ПЛИС</a></li>	
+					<li><a class="w3" rel="tag" href="http://we.easyelectronics.ru/tag/%D0%BF%D0%BE%D0%B4%D0%B5%D0%BB%D0%BA%D0%B8/">поделки</a></li>	
+					<li><a class="w1" rel="tag" href="http://we.easyelectronics.ru/tag/%D0%BF%D0%BE%D0%BA%D1%83%D0%BF%D0%BA%D0%B8/">покупки</a></li>	
+					<li><a class="w4" rel="tag" href="http://we.easyelectronics.ru/tag/%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0%D1%82%D0%BE%D1%80/">программатор</a></li>	
+					<li><a class="w3" rel="tag" href="http://we.easyelectronics.ru/tag/%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5/">программирование</a></li>	
+					<li><a class="w1" rel="tag" href="http://we.easyelectronics.ru/tag/%D1%80%D0%BE%D0%B1%D0%BE%D1%82/">робот</a></li>	
+					<li><a class="w1" rel="tag" href="http://we.easyelectronics.ru/tag/%D1%81%D0%B2%D0%B5%D1%82%D0%BE%D0%B4%D0%B8%D0%BE%D0%B4/">светодиод</a></li>	
+					<li><a class="w2" rel="tag" href="http://we.easyelectronics.ru/tag/%D1%81%D0%BE%D1%84%D1%82/">софт</a></li>	
+					<li><a class="w2" rel="tag" href="http://we.easyelectronics.ru/tag/%D1%81%D1%85%D0%B5%D0%BC%D0%B0/">схема</a></li>	
+					<li><a class="w3" rel="tag" href="http://we.easyelectronics.ru/tag/%D1%81%D1%85%D0%B5%D0%BC%D0%BE%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D0%BA%D0%B0/">схемотехника</a></li>	
+					<li><a class="w5" rel="tag" href="http://we.easyelectronics.ru/tag/%D0%A2%D0%B5%D1%85%D0%BD%D0%BE%D0%BB%D0%BE%D0%B3%D0%B8%D0%B8/">Технологии</a></li>	
+					<li><a class="w2" rel="tag" href="http://we.easyelectronics.ru/tag/%D1%83%D0%BC%D0%BD%D1%8B%D0%B9%20%D0%B4%D0%BE%D0%BC/">умный дом</a></li>	
+					<li><a class="w2" rel="tag" href="http://we.easyelectronics.ru/tag/%D1%84%D0%BE%D1%82%D0%BE%D1%80%D0%B5%D0%B7%D0%B8%D1%81%D1%82/">фоторезист</a></li>	
+					<li><a class="w5" rel="tag" href="http://we.easyelectronics.ru/tag/%D1%85%D0%B0%D0%BB%D1%8F%D0%B2%D0%B0/">халява</a></li>	
+					<li><a class="w2" rel="tag" href="http://we.easyelectronics.ru/tag/%D1%85%D1%80%D0%B5%D0%BD%D1%8C/">хрень</a></li>	
+					<li><a class="w1" rel="tag" href="http://we.easyelectronics.ru/tag/%D0%A7%D0%B0%D1%81%D1%8B/">Часы</a></li>	
+					<li><a class="w2" rel="tag" href="http://we.easyelectronics.ru/tag/%D1%8E%D0%BC%D0%BE%D1%80/">юмор</a></li>	
+			</ul>
+</div>
+															<div class="block blogs" id="block_blogs">
+	<h2>Блоги</h2>
+	
+	
+	<ul class="switcher">
+		<li id="block_blogs_item_top" class="active">Топ</li>
+			</ul>
+	
+	
+	<div class="block-content" id="block_blogs_content">
+		<ul class="list">
+			<li>
+			<span class="rating">37.52</span>
+			<a href="http://we.easyelectronics.ru/blog/AVR/">AVR</a> 
+					</li>
+			<li>
+			<span class="rating">36.47</span>
+			<a href="http://we.easyelectronics.ru/blog/STM8/">STM8</a> 
+					</li>
+			<li>
+			<span class="rating">29.53</span>
+			<a href="http://we.easyelectronics.ru/blog/JunkBox/">Мусоровоз</a> 
+			<img src="./AVR-Power management или как правильно спать_files/lock.png" alt="[x]" title="Закрытый блог">		</li>
+			<li>
+			<span class="rating">25.72</span>
+			<a href="http://we.easyelectronics.ru/blog/STM32/">STM32</a> 
+					</li>
+			<li>
+			<span class="rating">23.24</span>
+			<a href="http://we.easyelectronics.ru/blog/part/">Деталька</a> 
+					</li>
+			<li>
+			<span class="rating">21.17</span>
+			<a href="http://we.easyelectronics.ru/blog/electro-and-pc/">Связь железа с компьютером.</a> 
+					</li>
+			<li>
+			<span class="rating">18.15</span>
+			<a href="http://we.easyelectronics.ru/blog/Shematech/">Схемотехника</a> 
+					</li>
+			<li>
+			<span class="rating">17.75</span>
+			<a href="http://we.easyelectronics.ru/blog/smarthouse/">Умный дом</a> 
+					</li>
+			<li>
+			<span class="rating">17.13</span>
+			<a href="http://we.easyelectronics.ru/blog/msp430/">MSP430</a> 
+					</li>
+			<li>
+			<span class="rating">14.79</span>
+			<a href="http://we.easyelectronics.ru/blog/LPC/">LPC1xxx</a> 
+					</li>
+	</ul>				
+	</div>
+
+	
+	<div class="bottom">
+		<a href="http://we.easyelectronics.ru/blogs/">Все блоги</a>
+	</div>
+</div>
+
+									</div>			</div><!-- /wrapper -->
+
+	<div id="footer">
+		<div id="footer-inner">
+			<div class="right">© Powered by <a href="http://livestreetcms.ru/">LiveStreet CMS</a></div>
+			Design by — <a href="http://www.xeoart.com/">Студия XeoArt</a>
+			<img border="0" src="./AVR-Power management или как правильно спать_files/xeoart.gif">
+						
+		</div>
+	</div>
+
+</div><!-- /container -->
+
+
+
+
+<!-- Yandex.Metrika counter -->
+<div style="display:none;"><script type="text/javascript">
+(function(w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter4558804 = new Ya.Metrika({id:4558804,
+                    clickmap:true,
+                    trackLinks:true});
+        }
+        catch(e) { }
+    });
+})(window, "yandex_metrika_callbacks");
+</script></div>
+<script src="http://mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+<noscript>&lt;div&gt;&lt;img src="//mc.yandex.ru/watch/4558804" style="position:absolute; left:-9999px;" alt="" /&gt;&lt;/div&gt;</noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+<iframe name="oauth2relay2071746676" id="oauth2relay2071746676" src="./AVR-Power management или как правильно спать_files/postmessageRelay.html" tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe></body></html>
