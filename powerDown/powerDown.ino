@@ -1,4 +1,3 @@
-// **** INCLUDES *****
 #include "LowPower.h"
 
 uint16_t countSleep_counter = 0;
@@ -37,12 +36,10 @@ void loop() {
 
 void powerDwn(){  
   while(countSleep_counter < countSleep){
-    LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_ON);
+    LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF); 
+    //in theory: for controlling for BOD you should change FUSEs on Arduino. So, by default BOD always ON for Arduino. 
+    //But when I set BOD_OFF in code (I have not changed fuses) => arduino current consume changed from 36mkA to 14mkA O_o
     countSleep_counter++;
   }   
   countSleep_counter = 0;
 }
-
-
-
-
